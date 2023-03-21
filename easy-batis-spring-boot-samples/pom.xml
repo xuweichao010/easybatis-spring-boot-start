@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.onetozero</groupId>
         <artifactId>easybatis-spring-boot</artifactId>
-        <version>2.3.0.M1</version>
+        <version>2.3.0.M1-SNAPSHOT</version>
     </parent>
     <artifactId>easy-batis-spring-boot-samples</artifactId>
 
@@ -75,9 +75,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <arguments>-parameters</arguments>
-                </configuration>
+<!--                <configuration>-->
+<!--                    <arguments>-parameters</arguments>-->
+<!--                </configuration>-->
             </plugin>
         </plugins>
     </build>
