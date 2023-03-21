@@ -5,18 +5,56 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.onetozero</groupId>
     <artifactId>easybatis-spring-boot</artifactId>
-    <version>0.1</version>
-
+    <version>2.3.0.M1</version>
     <modules>
         <module>easy-batis-spring-boot-autoconfigure</module>
         <module>easy-batis-spring-boot-samples</module>
-        <module>easy-batis-mysql</module>
         <module>easy-batis-spring-boot-starter</module>
     </modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cn.onetozero</groupId>
+                <artifactId>easy-batis-spring-boot-autoconfigure</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.onetozero</groupId>
+                <artifactId>easy-batis-spring-boot-samples</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.onetozero</groupId>
+                <artifactId>easy-batis-spring-boot-starter</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>2.3.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <repositories>
-
+        <repository>
+            <id>bst-public</id>
+            <name>bst-public</name>
+            <url>http://124.221.168.155:8081/repository/release/</url>
+        </repository>
     </repositories>
+
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>onetozero-snapshots</id>
+            <url>http://124.221.168.155:8081/repository/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>onetozero-release</id>
+            <url>http://124.221.168.155:8081/repository/release/</url>
+        </repository>
+    </distributionManagement>
 
 
 </project>
