@@ -6,13 +6,25 @@
     <groupId>cn.onetozero</groupId>
     <artifactId>easybatis-spring-boot</artifactId>
     <version>2.3.0.M1</version>
+    <packaging>pom</packaging>
     <modules>
         <module>easy-batis-spring-boot-autoconfigure</module>
         <module>easy-batis-spring-boot-samples</module>
         <module>easy-batis-spring-boot-starter</module>
     </modules>
+    <properties>
+        <easybatis.version>3.5.11.M1-SNAPSHOT</easybatis.version>
+        <mybatis.boot.version>2.3.0</mybatis.boot.version>
+    </properties>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot</artifactId>
+                <version>${mybatis.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>cn.onetozero</groupId>
                 <artifactId>easy-batis-spring-boot-autoconfigure</artifactId>
@@ -32,6 +44,21 @@
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>2.3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.onetozero</groupId>
+                <artifactId>easy-batis-sql</artifactId>
+                <version>${easybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.onetozero</groupId>
+                <artifactId>easy-batis-mysql</artifactId>
+                <version>${easybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.onetozero</groupId>
+                <artifactId>easy-batis-postgres</artifactId>
+                <version>${easybatis.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

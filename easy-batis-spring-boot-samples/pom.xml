@@ -8,7 +8,6 @@
         <artifactId>easybatis-spring-boot</artifactId>
         <version>2.3.0.M1</version>
     </parent>
-
     <artifactId>easy-batis-spring-boot-samples</artifactId>
 
     <dependencies>
@@ -76,13 +75,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <arguments>-parameters</arguments>
                 </configuration>
