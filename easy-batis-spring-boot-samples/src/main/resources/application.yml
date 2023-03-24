@@ -13,3 +13,8 @@ mybatis:
   mapper-locations: classpath:/mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  easybatis:
+    auto-table-name: true
+    use-table-name-prefix: t_
+
+

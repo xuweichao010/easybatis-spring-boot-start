@@ -1,6 +1,5 @@
 package cn.onetozero.easybatis.spring.boot.autoconfigure;
 
-import cn.onetozero.easy.parse.EasyConfiguration;
 import cn.onetozero.easybatis.EasyBatisConfiguration;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
@@ -67,11 +66,11 @@ public class EasyMybatisAutoConfiguration {
     private final List<EasyConfigurationCustomizer> easyConfigurationCustomizers;
 
     public EasyMybatisAutoConfiguration(
-                                        ObjectProvider<Interceptor[]> interceptorsProvider,
-                                        ObjectProvider<TypeHandler[]> typeHandlersProvider, ObjectProvider<LanguageDriver[]> languageDriversProvider,
-                                        ResourceLoader resourceLoader, ObjectProvider<DatabaseIdProvider> databaseIdProvider,
-                                        ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider,
-                                        ObjectProvider<List<EasyConfigurationCustomizer>> easyConfigurationCustomizersProvider) {
+            ObjectProvider<Interceptor[]> interceptorsProvider,
+            ObjectProvider<TypeHandler[]> typeHandlersProvider, ObjectProvider<LanguageDriver[]> languageDriversProvider,
+            ResourceLoader resourceLoader, ObjectProvider<DatabaseIdProvider> databaseIdProvider,
+            ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider,
+            ObjectProvider<List<EasyConfigurationCustomizer>> easyConfigurationCustomizersProvider) {
         this.interceptors = interceptorsProvider.getIfAvailable();
         this.typeHandlers = typeHandlersProvider.getIfAvailable();
         this.languageDrivers = languageDriversProvider.getIfAvailable();
@@ -87,22 +86,9 @@ public class EasyMybatisAutoConfiguration {
         return new EasyMybatisProperties();
     }
 
-
     @Bean
-    public EasyConfiguration easyConfiguration() {
-        EasyConfiguration easyConfiguration = new EasyConfiguration();
-        easyConfiguration.setAutoTableName(easyMybatisProperties().isAutoTableName());
-        easyConfiguration.setGlobalIdType(easyMybatisProperties().getGlobalIdType());
-        easyConfiguration.setUseTableNamePrefix(easyMybatisProperties().getUseTableNamePrefix());
-        if (!CollectionUtils.isEmpty(this.easyConfigurationCustomizers)) {
-            for (EasyConfigurationCustomizer easyConfigurationCustomizer : easyConfigurationCustomizers) {
-                easyConfigurationCustomizer.customize(easyConfiguration);
-            }
-        }
-        if (logger.isDebugEnabled()) {
-            logger.debug("EasyConfiguration 配置完成");
-        }
-        return easyConfiguration;
+    public EasyProperties easyProperties() {
+        return new EasyProperties();
     }
 
 
@@ -161,9 +147,13 @@ public class EasyMybatisAutoConfiguration {
     private void applyConfiguration(SqlSessionFactoryBean factory) {
         Configuration configuration = this.easyMybatisProperties().getConfiguration();
         if (configuration == null && !StringUtils.hasText(this.easyMybatisProperties().getConfigLocation())) {
-            configuration = new EasyBatisConfiguration(new EasyConfiguration());
+            configuration = new Configuration();
         }
+
         if (configuration != null && !CollectionUtils.isEmpty(this.configurationCustomizers)) {
+            if (configuration instanceof EasyBatisConfiguration) {
+                ((EasyBatisConfiguration) configuration).setEasyConfiguration(easyProperties());
+            }
             for (ConfigurationCustomizer customizer : this.configurationCustomizers) {
                 customizer.customize(configuration);
             }

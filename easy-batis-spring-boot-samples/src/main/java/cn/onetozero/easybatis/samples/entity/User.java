@@ -11,7 +11,7 @@ import lombok.Data;
  * 时间 2023/1/12 17:43
  */
 @Data
-@Table("t_user")
+@Table
 public class User extends BaseEntity {
 
     /**

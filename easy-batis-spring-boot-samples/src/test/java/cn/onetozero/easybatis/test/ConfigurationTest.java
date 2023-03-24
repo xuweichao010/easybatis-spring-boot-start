@@ -2,6 +2,7 @@ package cn.onetozero.easybatis.test;
 
 import cn.onetozero.easybatis.samples.EasyBatisApplication;
 import cn.onetozero.easybatis.samples.entity.User;
+import cn.onetozero.easybatis.samples.mapper.AutoTableUserMapper;
 import cn.onetozero.easybatis.samples.mapper.UserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,14 +17,20 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {EasyBatisApplication.class})
-public class RunnerTest {
+public class ConfigurationTest {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private AutoTableUserMapper autoTableUserMapper;
 
     @Test
     public void config() {
         User one = userMapper.findOne("1L");
+    }
 
+    @Test
+    public void configAutoTable(){
+        autoTableUserMapper.selectKey("1L");
     }
 }

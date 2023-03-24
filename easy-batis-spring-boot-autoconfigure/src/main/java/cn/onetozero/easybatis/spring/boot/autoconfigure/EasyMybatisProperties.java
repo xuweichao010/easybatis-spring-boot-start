@@ -15,9 +15,7 @@
  */
 package cn.onetozero.easybatis.spring.boot.autoconfigure;
 
-import cn.onetozero.easy.parse.enums.IdType;
 import cn.onetozero.easybatis.EasyBatisConfiguration;
-import org.apache.ibatis.session.Configuration;
 import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
@@ -32,30 +30,11 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 public class EasyMybatisProperties extends MybatisProperties {
 
 
-    /**
-     * 当 @link com.xwc.open.parse.annotations.@Id注解 中 type 属性等于IdType.GLOBAL 的时候就是使用这里配置的属性,
-     * 当不配置这里的属性时候 在对象中 @link com.xwc.open.parse.annotations.@Id注解 中 type 属性等于IdType.GLOBAL,
-     * 系统就会抛出异常 @link com.xwc.open.parse.exceptions.CheckResultModelException
-     */
-    private IdType globalIdType;
-
-    /**
-     * 使用实体名自动关联表名开关 当实体 autoTableName为 true的时候 @link com.xwc.open.parse.annotations.Table注解中的value 属性
-     * 就不用填写，如果填写就以填写的属性为主
-     */
-    private boolean autoTableName = false;
-
-    /**
-     * 映射的表名前缀
-     * 当autoTableName等true有效
-     */
-    private String useTableNamePrefix;
-
     @NestedConfigurationProperty
     private EasyBatisConfiguration configuration;
 
     @Override
-    public Configuration getConfiguration() {
+    public EasyBatisConfiguration getConfiguration() {
         return configuration;
     }
 
@@ -63,27 +42,5 @@ public class EasyMybatisProperties extends MybatisProperties {
         this.configuration = configuration;
     }
 
-    public IdType getGlobalIdType() {
-        return globalIdType;
-    }
 
-    public void setGlobalIdType(IdType globalIdType) {
-        this.globalIdType = globalIdType;
-    }
-
-    public boolean isAutoTableName() {
-        return autoTableName;
-    }
-
-    public void setAutoTableName(boolean autoTableName) {
-        this.autoTableName = autoTableName;
-    }
-
-    public String getUseTableNamePrefix() {
-        return useTableNamePrefix;
-    }
-
-    public void setUseTableNamePrefix(String useTableNamePrefix) {
-        this.useTableNamePrefix = useTableNamePrefix;
-    }
 }
