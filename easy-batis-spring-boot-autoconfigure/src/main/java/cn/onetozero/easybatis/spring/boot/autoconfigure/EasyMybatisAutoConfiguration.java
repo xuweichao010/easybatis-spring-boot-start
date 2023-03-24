@@ -9,7 +9,10 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.TypeHandler;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.boot.autoconfigure.*;
+import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
+import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
+import org.mybatis.spring.boot.autoconfigure.MybatisLanguageDriverAutoConfiguration;
+import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapperImpl;
@@ -20,6 +23,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandi
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -40,14 +44,13 @@ import java.util.stream.Stream;
 @org.springframework.context.annotation.Configuration
 @ConditionalOnClass({SqlSessionFactory.class, SqlSessionFactoryBean.class, MybatisAutoConfiguration.class})
 @ConditionalOnSingleCandidate(DataSource.class)
-@EnableConfigurationProperties(EasyMybatisProperties.class)
+@EnableConfigurationProperties
 @AutoConfigureAfter({DataSourceAutoConfiguration.class, MybatisLanguageDriverAutoConfiguration.class,
         MybatisAutoConfiguration.class})
 public class EasyMybatisAutoConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(EasyMybatisAutoConfiguration.class);
 
-    private final EasyMybatisProperties properties;
 
     private final Interceptor[] interceptors;
 
@@ -63,13 +66,12 @@ public class EasyMybatisAutoConfiguration {
 
     private final List<EasyConfigurationCustomizer> easyConfigurationCustomizers;
 
-    public EasyMybatisAutoConfiguration(EasyMybatisProperties easyMybatisProperties,
+    public EasyMybatisAutoConfiguration(
                                         ObjectProvider<Interceptor[]> interceptorsProvider,
                                         ObjectProvider<TypeHandler[]> typeHandlersProvider, ObjectProvider<LanguageDriver[]> languageDriversProvider,
                                         ResourceLoader resourceLoader, ObjectProvider<DatabaseIdProvider> databaseIdProvider,
                                         ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider,
                                         ObjectProvider<List<EasyConfigurationCustomizer>> easyConfigurationCustomizersProvider) {
-        this.properties = easyMybatisProperties;
         this.interceptors = interceptorsProvider.getIfAvailable();
         this.typeHandlers = typeHandlersProvider.getIfAvailable();
         this.languageDrivers = languageDriversProvider.getIfAvailable();
@@ -79,13 +81,19 @@ public class EasyMybatisAutoConfiguration {
         this.easyConfigurationCustomizers = easyConfigurationCustomizersProvider.getIfAvailable();
     }
 
+    @Bean
+    @Primary
+    public EasyMybatisProperties easyMybatisProperties() {
+        return new EasyMybatisProperties();
+    }
+
 
     @Bean
     public EasyConfiguration easyConfiguration() {
         EasyConfiguration easyConfiguration = new EasyConfiguration();
-        easyConfiguration.setAutoTableName(properties.isAutoTableName());
-        easyConfiguration.setGlobalIdType(properties.getGlobalIdType());
-        easyConfiguration.setUseTableNamePrefix(properties.getUseTableNamePrefix());
+        easyConfiguration.setAutoTableName(easyMybatisProperties().isAutoTableName());
+        easyConfiguration.setGlobalIdType(easyMybatisProperties().getGlobalIdType());
+        easyConfiguration.setUseTableNamePrefix(easyMybatisProperties().getUseTableNamePrefix());
         if (!CollectionUtils.isEmpty(this.easyConfigurationCustomizers)) {
             for (EasyConfigurationCustomizer easyConfigurationCustomizer : easyConfigurationCustomizers) {
                 easyConfigurationCustomizer.customize(easyConfiguration);
@@ -103,12 +111,12 @@ public class EasyMybatisAutoConfiguration {
         SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
         factory.setDataSource(dataSource);
         factory.setVfs(SpringBootVFS.class);
-        if (StringUtils.hasText(this.properties.getConfigLocation())) {
-            factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfigLocation()));
+        if (StringUtils.hasText(this.easyMybatisProperties().getConfigLocation())) {
+            factory.setConfigLocation(this.resourceLoader.getResource(this.easyMybatisProperties().getConfigLocation()));
         }
         applyConfiguration(factory);
-        if (this.properties.getConfigurationProperties() != null) {
-            factory.setConfigurationProperties(this.properties.getConfigurationProperties());
+        if (this.easyMybatisProperties().getConfigurationProperties() != null) {
+            factory.setConfigurationProperties(this.easyMybatisProperties().getConfigurationProperties());
         }
         if (!ObjectUtils.isEmpty(this.interceptors)) {
             factory.setPlugins(this.interceptors);
@@ -116,25 +124,25 @@ public class EasyMybatisAutoConfiguration {
         if (this.databaseIdProvider != null) {
             factory.setDatabaseIdProvider(this.databaseIdProvider);
         }
-        if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {
-            factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
+        if (StringUtils.hasLength(this.easyMybatisProperties().getTypeAliasesPackage())) {
+            factory.setTypeAliasesPackage(this.easyMybatisProperties().getTypeAliasesPackage());
         }
-        if (this.properties.getTypeAliasesSuperType() != null) {
-            factory.setTypeAliasesSuperType(this.properties.getTypeAliasesSuperType());
+        if (this.easyMybatisProperties().getTypeAliasesSuperType() != null) {
+            factory.setTypeAliasesSuperType(this.easyMybatisProperties().getTypeAliasesSuperType());
         }
-        if (StringUtils.hasLength(this.properties.getTypeHandlersPackage())) {
-            factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
+        if (StringUtils.hasLength(this.easyMybatisProperties().getTypeHandlersPackage())) {
+            factory.setTypeHandlersPackage(this.easyMybatisProperties().getTypeHandlersPackage());
         }
         if (!ObjectUtils.isEmpty(this.typeHandlers)) {
             factory.setTypeHandlers(this.typeHandlers);
         }
-        if (!ObjectUtils.isEmpty(this.properties.resolveMapperLocations())) {
-            factory.setMapperLocations(this.properties.resolveMapperLocations());
+        if (!ObjectUtils.isEmpty(this.easyMybatisProperties().resolveMapperLocations())) {
+            factory.setMapperLocations(this.easyMybatisProperties().resolveMapperLocations());
         }
         Set<String> factoryPropertyNames = Stream
                 .of(new BeanWrapperImpl(SqlSessionFactoryBean.class).getPropertyDescriptors()).map(PropertyDescriptor::getName)
                 .collect(Collectors.toSet());
-        Class<? extends LanguageDriver> defaultLanguageDriver = this.properties.getDefaultScriptingLanguageDriver();
+        Class<? extends LanguageDriver> defaultLanguageDriver = this.easyMybatisProperties().getDefaultScriptingLanguageDriver();
         if (factoryPropertyNames.contains("scriptingLanguageDrivers") && !ObjectUtils.isEmpty(this.languageDrivers)) {
             // Need to mybatis-spring 2.0.2+
             factory.setScriptingLanguageDrivers(this.languageDrivers);
@@ -151,8 +159,8 @@ public class EasyMybatisAutoConfiguration {
     }
 
     private void applyConfiguration(SqlSessionFactoryBean factory) {
-        Configuration configuration = this.properties.getConfiguration();
-        if (configuration == null && !StringUtils.hasText(this.properties.getConfigLocation())) {
+        Configuration configuration = this.easyMybatisProperties().getConfiguration();
+        if (configuration == null && !StringUtils.hasText(this.easyMybatisProperties().getConfigLocation())) {
             configuration = new EasyBatisConfiguration(new EasyConfiguration());
         }
         if (configuration != null && !CollectionUtils.isEmpty(this.configurationCustomizers)) {

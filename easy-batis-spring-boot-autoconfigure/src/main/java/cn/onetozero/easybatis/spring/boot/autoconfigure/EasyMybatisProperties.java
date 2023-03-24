@@ -18,9 +18,9 @@ package cn.onetozero.easybatis.spring.boot.autoconfigure;
 import cn.onetozero.easy.parse.enums.IdType;
 import cn.onetozero.easybatis.EasyBatisConfiguration;
 import org.apache.ibatis.session.Configuration;
+import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
-import org.springframework.context.annotation.Primary;
 
 /**
  * Configuration properties for MyBatis.
@@ -28,9 +28,8 @@ import org.springframework.context.annotation.Primary;
  * @author Eddú MeléndezE
  * @author Kazuki Shimizu
  */
-@ConfigurationProperties(prefix = CustomMybatisProperties.MYBATIS_PREFIX)
-@Primary
-public class EasyMybatisProperties extends CustomMybatisProperties {
+@ConfigurationProperties(prefix = MybatisProperties.MYBATIS_PREFIX)
+public class EasyMybatisProperties extends MybatisProperties {
 
 
     /**
