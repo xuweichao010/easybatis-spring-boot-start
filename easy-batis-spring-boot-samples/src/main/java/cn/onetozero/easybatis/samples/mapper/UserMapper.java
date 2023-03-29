@@ -15,4 +15,7 @@ public interface UserMapper extends EasyMapper<User, String> {
 
     @SelectSql
     User findOne(String id);
+
+
+    User findOneXml(String id);
 }
