@@ -4,7 +4,6 @@ import cn.onetozero.easybatis.EasyBatisConfiguration;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.scripting.LanguageDriver;
-import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.TypeHandler;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -145,15 +144,12 @@ public class EasyMybatisAutoConfiguration {
     }
 
     private void applyConfiguration(SqlSessionFactoryBean factory) {
-        Configuration configuration = this.easyMybatisProperties().getConfiguration();
+        EasyBatisConfiguration configuration = this.easyMybatisProperties().getConfiguration();
         if (configuration == null && !StringUtils.hasText(this.easyMybatisProperties().getConfigLocation())) {
-            configuration = new Configuration();
+            configuration = new EasyBatisConfiguration();
         }
-
         if (configuration != null && !CollectionUtils.isEmpty(this.configurationCustomizers)) {
-            if (configuration instanceof EasyBatisConfiguration) {
-                ((EasyBatisConfiguration) configuration).setEasyConfiguration(easyProperties());
-            }
+            configuration.setEasyConfiguration(easyProperties());
             for (ConfigurationCustomizer customizer : this.configurationCustomizers) {
                 customizer.customize(configuration);
             }

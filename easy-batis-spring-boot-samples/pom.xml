@@ -34,10 +34,6 @@
             <artifactId>easy-batis-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
@@ -57,9 +53,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-<!--                <configuration>-->
-<!--                    <arguments>-parameters</arguments>-->
-<!--                </configuration>-->
+                <configuration>
+                    <arguments>true</arguments>
+                    <compilerArguments>-parameters</compilerArguments>
+                </configuration>
             </plugin>
         </plugins>
     </build>
