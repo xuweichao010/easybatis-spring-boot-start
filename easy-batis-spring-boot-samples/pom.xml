@@ -53,10 +53,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <arguments>true</arguments>
-                    <compilerArguments>-parameters</compilerArguments>
-                </configuration>
             </plugin>
         </plugins>
     </build>

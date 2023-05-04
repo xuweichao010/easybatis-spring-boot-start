@@ -1,14 +1,14 @@
 server:
   port: 9966
 spring:
+  autoconfigure:
+    exclude: org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     # 数据库配置
-    url:  jdbc:mysql://127.0.0.1:3306/easybatis
+    url: jdbc:mysql://127.0.0.1:3306/easybatis
     username: root
     password: root
-  main:
-    allow-bean-definition-overriding: true
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
   configuration:
