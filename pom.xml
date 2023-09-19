@@ -14,7 +14,7 @@
     </modules>
     <properties>
         <easybatis.version>3.5.11.M1-SNAPSHOT</easybatis.version>
-        <mybatis.boot.version>2.3.0</mybatis.boot.version>
+        <mybatis.boot.version>3.0.0</mybatis.boot.version>
     </properties>
     <dependencyManagement>
         <dependencies>
