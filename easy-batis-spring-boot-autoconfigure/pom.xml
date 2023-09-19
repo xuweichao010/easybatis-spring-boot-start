@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.onetozero</groupId>
         <artifactId>easybatis-spring-boot</artifactId>
-        <version>2.3.0.M1-SNAPSHOT</version>
+        <version>3.0.0.M1-SNAPSHOT</version>
     </parent>
     <artifactId>easy-batis-spring-boot-autoconfigure</artifactId>
     <packaging>jar</packaging>
