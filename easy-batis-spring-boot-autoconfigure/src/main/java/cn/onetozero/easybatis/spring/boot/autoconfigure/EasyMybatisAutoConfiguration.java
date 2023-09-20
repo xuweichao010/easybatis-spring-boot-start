@@ -1,6 +1,7 @@
 package cn.onetozero.easybatis.spring.boot.autoconfigure;
 
 import cn.onetozero.easybatis.EasyBatisConfiguration;
+import cn.onetozero.easybatis.fill.FillAttributeHandler;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
@@ -69,8 +70,9 @@ public class EasyMybatisAutoConfiguration implements InitializingBean {
     private final ResourceLoader resourceLoader;
     private final DatabaseIdProvider databaseIdProvider;
     private final List<ConfigurationCustomizer> configurationCustomizers;
-    private final List<SqlSessionFactoryBeanCustomizer> sqlSessionFactoryBeanCustomizers;
 
+    private final List<FillAttributeHandler> fillAttributeHandlers;
+    private final List<SqlSessionFactoryBeanCustomizer> sqlSessionFactoryBeanCustomizers;
     private final List<EasyConfigurationCustomizer> easyConfigurationCustomizers;
 
 
@@ -82,6 +84,7 @@ public class EasyMybatisAutoConfiguration implements InitializingBean {
                                         ResourceLoader resourceLoader,
                                         ObjectProvider<DatabaseIdProvider> databaseIdProvider,
                                         ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider,
+                                        ObjectProvider<List<FillAttributeHandler>> fillAttributeHandlerObjectProvider,
                                         ObjectProvider<List<SqlSessionFactoryBeanCustomizer>> sqlSessionFactoryBeanCustomizers,
                                         ObjectProvider<List<EasyConfigurationCustomizer>> easyConfigurationCustomizersProvider) {
         this.properties = properties;
@@ -94,6 +97,7 @@ public class EasyMybatisAutoConfiguration implements InitializingBean {
         this.configurationCustomizers = configurationCustomizersProvider.getIfAvailable();
         this.sqlSessionFactoryBeanCustomizers = sqlSessionFactoryBeanCustomizers.getIfAvailable();
         this.easyConfigurationCustomizers = easyConfigurationCustomizersProvider.getIfAvailable();
+        this.fillAttributeHandlers = fillAttributeHandlerObjectProvider.getIfAvailable();
 
     }
 
@@ -193,6 +197,12 @@ public class EasyMybatisAutoConfiguration implements InitializingBean {
         if (configuration != null && !CollectionUtils.isEmpty(this.configurationCustomizers)) {
             for (ConfigurationCustomizer customizer : this.configurationCustomizers) {
                 customizer.customize(configuration);
+            }
+        }
+        // 添加拦截器
+        if (configuration != null && !CollectionUtils.isEmpty(fillAttributeHandlers)) {
+            for (FillAttributeHandler fillAttributeHandler : fillAttributeHandlers) {
+                configuration.addFillAttributeHandler(fillAttributeHandler);
             }
         }
         factory.setConfiguration(configuration);
