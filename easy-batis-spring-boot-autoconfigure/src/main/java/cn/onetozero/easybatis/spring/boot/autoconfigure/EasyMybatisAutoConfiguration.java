@@ -168,8 +168,9 @@ public class EasyMybatisAutoConfiguration implements InitializingBean {
     }
 
     private void applyConfiguration(SqlSessionFactoryBean factory) {
-        EasyBatisConfiguration configuration = this.easyMybatisProperties().getConfiguration();
-        if (configuration == null && !StringUtils.hasText(this.easyMybatisProperties().getConfigLocation())) {
+        EasyMybatisProperties easyMybatisProperties = this.easyMybatisProperties();
+        EasyBatisConfiguration configuration = easyMybatisProperties.getConfiguration();
+        if (configuration == null && !StringUtils.hasText(easyMybatisProperties.getConfigLocation())) {
             configuration = new EasyBatisConfiguration();
         }
         if (configuration != null && !CollectionUtils.isEmpty(this.configurationCustomizers)) {
