@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * 类描述：
- * 作者：徐卫超 (cc)
- * 时间 2023/2/10 16:38
+ * @author  徐卫超 (cc)
+ * @since 2023/2/10 16:38
  */
 @Service
 public class UserService {

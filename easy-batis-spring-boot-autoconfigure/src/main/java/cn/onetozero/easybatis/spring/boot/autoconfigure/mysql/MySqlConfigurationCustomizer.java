@@ -13,8 +13,8 @@ import java.util.List;
 
 /**
  * 类描述：配置config 并注册
- * 作者：徐卫超 (cc)
- * 时间 2023/2/9 19:06
+ * @author  徐卫超 (cc)
+ * @since 2023/2/9 19:06
  */
 
 public class MySqlConfigurationCustomizer implements ConfigurationCustomizer {

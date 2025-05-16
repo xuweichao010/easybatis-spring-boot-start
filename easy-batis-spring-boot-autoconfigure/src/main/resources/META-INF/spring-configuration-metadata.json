@@ -2,13 +2,13 @@
   "groups": [
     {
       "name": "mybatis",
-      "type": "cn.onetozero.easybatis.spring.boot.autoconfigure.EasyMybatisProperties",
-      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.EasyMybatisProperties"
+      "type": "cn.onetozero.easybatis.spring.boot.autoconfigure.MybatisProperties",
+      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.MybatisProperties"
     },
     {
       "name": "mybatis.configuration",
       "type": "cn.onetozero.easybatis.EasyBatisConfiguration",
-      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.EasyMybatisProperties",
+      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.MybatisProperties",
       "sourceMethod": "getConfiguration()"
     },
     {
@@ -21,17 +21,17 @@
     {
       "name": "mybatis.check-config-location",
       "type": "java.lang.Boolean",
-      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.EasyMybatisProperties"
+      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.MybatisProperties"
     },
     {
       "name": "mybatis.config-location",
       "type": "java.lang.String",
-      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.EasyMybatisProperties"
+      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.MybatisProperties"
     },
     {
       "name": "mybatis.configuration-properties",
       "type": "java.util.Properties",
-      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.EasyMybatisProperties"
+      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.MybatisProperties"
     },
     {
       "name": "mybatis.configuration.aggressive-lazy-loading",
@@ -311,7 +311,7 @@
     {
       "name": "mybatis.default-scripting-language-driver",
       "type": "java.lang.Class<? extends org.apache.ibatis.scripting.LanguageDriver>",
-      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.EasyMybatisProperties"
+      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.MybatisProperties"
     },
     {
       "name": "mybatis.easybatis.auto-table-name",
@@ -325,7 +325,7 @@
     },
     {
       "name": "mybatis.easybatis.global-id-type",
-      "type": "cn.onetozero.easy.parse.enums.IdType",
+      "type": "cn.onetozero.easy.annotations.enums.IdType",
       "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.EasyProperties"
     },
     {
@@ -356,27 +356,27 @@
     {
       "name": "mybatis.executor-type",
       "type": "org.apache.ibatis.session.ExecutorType",
-      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.EasyMybatisProperties"
+      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.MybatisProperties"
     },
     {
       "name": "mybatis.mapper-locations",
       "type": "java.lang.String[]",
-      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.EasyMybatisProperties"
+      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.MybatisProperties"
     },
     {
       "name": "mybatis.type-aliases-package",
       "type": "java.lang.String",
-      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.EasyMybatisProperties"
+      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.MybatisProperties"
     },
     {
       "name": "mybatis.type-aliases-super-type",
       "type": "java.lang.Class<?>",
-      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.EasyMybatisProperties"
+      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.MybatisProperties"
     },
     {
       "name": "mybatis.type-handlers-package",
       "type": "java.lang.String",
-      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.EasyMybatisProperties"
+      "sourceType": "cn.onetozero.easybatis.spring.boot.autoconfigure.MybatisProperties"
     }
   ],
   "hints": []

@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.onetozero</groupId>
-        <artifactId>easybatis-spring-boot</artifactId>
-        <version>2.3.0.M1-SNAPSHOT</version>
+        <artifactId>easy-batis-spring-boot-parent</artifactId>
+        <version>3.0.0.M1-SNAPSHOT</version>
     </parent>
     <packaging>jar</packaging>
     <artifactId>easy-batis-spring-boot-starter</artifactId>
@@ -18,7 +18,6 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.3.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.mybatis</groupId>

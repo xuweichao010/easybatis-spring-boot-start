@@ -11,8 +11,8 @@ import java.util.List;
 
 /**
  * 类描述：创建关于mysql的自动配置类
- * 作者：徐卫超 (cc)
- * 时间 2023/2/9 15:06
+ * @author  徐卫超 (cc)
+ * @since 2023/2/9 15:06
  */
 @org.springframework.context.annotation.Configuration
 @AutoConfigureAfter({EasyMybatisAutoConfiguration.class})
