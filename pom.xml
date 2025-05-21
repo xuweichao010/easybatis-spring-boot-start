@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.onetozero</groupId>
     <artifactId>easy-batis-spring-boot-parent</artifactId>
-    <version>3.0.1.M1-SNAPSHOT</version>
+    <version>3.0.4.M1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>easy-batis-spring-boot-autoconfigure</module>

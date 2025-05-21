@@ -6,7 +6,7 @@
   <parent>
     <groupId>cn.onetozero</groupId>
     <artifactId>easy-batis-spring-boot-parent</artifactId>
-    <version>3.0.1.M1-SNAPSHOT</version>
+    <version>3.0.4.M1-SNAPSHOT</version>
   </parent>
   <artifactId>easy-batis-spring-boot-samples</artifactId>
 
